@@ -1,0 +1,13 @@
+/.vs/
+/Binaries/
+/Intermediate/
+/Saved/
+/DerivedDataCache/
+
+*.sln
+*.suo
+*.VC.db
+*.VC.opendb
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
