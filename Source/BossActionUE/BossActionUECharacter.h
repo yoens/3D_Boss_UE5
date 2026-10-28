@@ -22,6 +22,13 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  A simple player-controllable third person character
  *  Implements a controllable orbiting camera
  */
+enum class EPlayerHitResult : uint8
+{
+	Ignored,
+	Damaged,
+	Parried,
+	Evaded
+};
 UCLASS(abstract)
 class ABossActionUECharacter : public ACharacter
 {
@@ -102,7 +109,7 @@ public:
 	ABossActionUECharacter();	
 
 	/** Entry point for damage received by the player */
-	void ReceiveHit(float DamageAmount);
+	EPlayerHitResult ReceiveHit(float DamageAmount);
 
 protected:
 

@@ -323,32 +323,35 @@ void ABossActionUECharacter::TestDamage()
 	ReceiveHit(25.f);
 }
 
-void ABossActionUECharacter::ReceiveHit(float DamageAmount)
+EPlayerHitResult ABossActionUECharacter::ReceiveHit(float DamageAmount)
 {
 	if (!IsValid(HealthComponent) || HealthComponent->IsDead())
 	{
-		return;
+		return EPlayerHitResult::Ignored;
 	}
 
 	if (DamageAmount <= 0.f)
 	{
-		return;
+		return EPlayerHitResult::Ignored;
 	}
 
 	if (bIsRolling)
 	{
 		UE_LOG(LogBossActionUE, Log, TEXT("Roll evaded hit"));
-		return;
+		return EPlayerHitResult::Evaded;
 	}
 
 	if (bIsParrying)
 	{
 		UE_LOG(LogBossActionUE, Log, TEXT("Parry success"));
 		EndParry();
-		return;
+
+		return EPlayerHitResult::Parried;
 	}
 
 	HealthComponent->ReceiveDamage(DamageAmount);
+
+	return EPlayerHitResult::Damaged;
 }
 
 void ABossActionUECharacter::HandleDeath()
